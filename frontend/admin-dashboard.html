@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — DriveNow Vehicle Rental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/variables.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/admin-dashboard.css" />
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav">
+    <div class="nav-logo">DriveNow <span class="role-badge">Admin</span></div>
+    <div class="nav-tabs">
+      <button class="nav-tab active" data-tab="dashboard">Dashboard</button>
+      <button class="nav-tab" data-tab="vehicles">Fleet</button>
+      <button class="nav-tab" data-tab="bookings">Bookings</button>
+      <button class="nav-tab" data-tab="users">Users</button>
+      <button class="nav-tab" data-tab="reports">Reports</button>
+    </div>
+    <div class="nav-user">
+      <span id="user-display" class="user-name">—</span>
+      <button id="logout-btn" class="btn-logout">Logout</button>
+    </div>
+  </nav>
+
+  <div class="page-content">
+
+    <!-- DASHBOARD -->
+    <section id="tab-dashboard" class="tab-panel active">
+      <div class="section-header">
+        <div class="section-title">Admin Dashboard</div>
+        <div class="date-range">
+          <input type="date" id="date-from" />
+          <span>to</span>
+          <input type="date" id="date-to" />
+        </div>
+      </div>
+
+      <div class="admin-stats-grid">
+        <div class="stat-card premium">
+          <div class="stat-icon">💰</div>
+          <div class="stat-content">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="stat-revenue">₨0</div>
+            <div class="stat-sub" id="stat-revenue-change">+0% from last month</div>
+          </div>
+        </div>
+        <div class="stat-card premium">
+          <div class="stat-icon">📊</div>
+          <div class="stat-content">
+            <div class="stat-label">Total Bookings</div>
+            <div class="stat-value" id="stat-bookings">0</div>
+            <div class="stat-sub" id="stat-bookings-change">+0% from last month</div>
+          </div>
+        </div>
+        <div class="stat-card premium">
+          <div class="stat-icon">🚗</div>
+          <div class="stat-content">
+            <div class="stat-label">Total Vehicles</div>
+            <div class="stat-value" id="stat-vehicles">0</div>
+            <div class="stat-sub" id="stat-vehicles-active">0 active</div>
+          </div>
+        </div>
+        <div class="stat-card premium">
+          <div class="stat-icon">👥</div>
+          <div class="stat-content">
+            <div class="stat-label">Total Users</div>
+            <div class="stat-value" id="stat-users">0</div>
+            <div class="stat-sub" id="stat-users-active">0 active</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="two-col">
+        <div class="card">
+          <div class="section-title">Fleet Status</div>
+          <div class="status-breakdown">
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: var(--success-text)"></span>
+                Available
+              </div>
+              <div class="status-value" id="fleet-available">0</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: var(--warning-text)"></span>
+                Rented
+              </div>
+              <div class="status-value" id="fleet-rented">0</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: var(--danger-text)"></span>
+                Maintenance
+              </div>
+              <div class="status-value" id="fleet-maintenance">0</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">Booking Status</div>
+          <div class="status-breakdown">
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: #4FAAFE"></span>
+                Pending
+              </div>
+              <div class="status-value" id="booking-pending">0</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: var(--success-text)"></span>
+                Confirmed
+              </div>
+              <div class="status-value" id="booking-confirmed">0</div>
+            </div>
+            <div class="status-item">
+              <div class="status-label">
+                <span class="status-dot" style="background: var(--warning-text)"></span>
+                Completed
+              </div>
+              <div class="status-value" id="booking-completed">0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="section-title">Recent Bookings</div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Customer</th>
+                <th>Vehicle</th>
+                <th>From - To</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="recent-bookings">
+              <tr><td colspan="7" class="empty-msg">Loading bookings...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- FLEET MANAGEMENT -->
+    <section id="tab-vehicles" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">Fleet Management</div>
+        <button class="btn-primary" id="btn-add-vehicle">+ Add Vehicle</button>
+      </div>
+      <div class="search-row">
+        <input type="text" id="vehicle-search" placeholder="Search vehicles..." />
+        <select id="vehicle-filter">
+          <option value="">All types</option>
+          <option value="Car">Cars</option>
+          <option value="Motorcycle">Motorcycles</option>
+          <option value="SUV">SUVs</option>
+          <option value="Van">Vans</option>
+        </select>
+        <select id="vehicle-status-filter">
+          <option value="">All status</option>
+          <option value="available">Available</option>
+          <option value="rented">Rented</option>
+          <option value="maintenance">Maintenance</option>
+        </select>
+      </div>
+      <div class="vehicle-grid" id="vehicle-grid">
+        <p class="empty-msg">Loading vehicles...</p>
+      </div>
+    </section>
+
+    <!-- BOOKINGS -->
+    <section id="tab-bookings" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">All Bookings</div>
+        <div class="filter-actions">
+          <select id="booking-filter">
+            <option value="">All bookings</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Customer</th>
+              <th>Vehicle</th>
+              <th>Dates</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="all-bookings">
+            <tr><td colspan="7" class="empty-msg">Loading bookings...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- USERS MANAGEMENT -->
+    <section id="tab-users" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">User Management</div>
+      </div>
+      <div class="search-row">
+        <input type="text" id="user-search" placeholder="Search users..." />
+        <select id="user-role-filter">
+          <option value="">All roles</option>
+          <option value="admin">Admin</option>
+          <option value="customer">Customer</option>
+        </select>
+        <select id="user-status-filter">
+          <option value="">All status</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Full Name</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Joined</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="users-list">
+            <tr><td colspan="8" class="empty-msg">Loading users...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- REPORTS -->
+    <section id="tab-reports" class="tab-panel">
+      <div class="section-header">
+        <div class="section-title">Analytics & Reports</div>
+      </div>
+      <div class="reports-grid">
+        <div class="card">
+          <div class="section-title">Revenue Trend</div>
+          <div class="chart-placeholder">
+            <p>Monthly revenue chart</p>
+            <div id="revenue-chart"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">Booking Trend</div>
+          <div class="chart-placeholder">
+            <p>Monthly bookings chart</p>
+            <div id="bookings-chart"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">Vehicle Utilization</div>
+          <div class="chart-placeholder">
+            <p>Vehicle usage chart</p>
+            <div id="utilization-chart"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="section-title">Top Vehicles</div>
+          <div class="list-placeholder" id="top-vehicles-list">
+            <p class="empty-msg">Loading top vehicles...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

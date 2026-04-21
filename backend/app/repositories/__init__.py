@@ -1,0 +1,2 @@
+from app.repositories.vehicle_repo import VehicleRepository
+from app.repositories.booking_repo import BookingRepository

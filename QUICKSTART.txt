@@ -1,0 +1,156 @@
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║           🚗 DRIVENOW - QUICK START GUIDE                         ║
+║         Vehicle Rental Management System                          ║
+╚═══════════════════════════════════════════════════════════════════╝
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ✅ SYSTEM STATUS                                                │
+├─────────────────────────────────────────────────────────────────┤
+│ Backend Server:    http://127.0.0.1:8000        ✓ RUNNING      │
+│ Database:          SQLite (vehicle_rental.db)   ✓ INITIALIZED  │
+│ Test Users:        3 pre-created + signup ready ✓ READY        │
+│ Authentication:    Login + Signup               ✓ ENABLED      │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 🔐 TEST CREDENTIALS                                             │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ Admin Account:                                                  │
+│   Username: admin                                               │
+│   Password: admin123                                            │
+│   Email:    admin@drivenow.com                                  │
+│                                                                 │
+│ Customer Account 1:                                             │
+│   Username: user1                                               │
+│   Password: password123                                         │
+│   Email:    user1@example.com                                   │
+│                                                                 │
+│ Customer Account 2:                                             │
+│   Username: user2                                               │
+│   Password: password456                                         │
+│   Email:    user2@example.com                                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 🚀 QUICK START                                                  │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ 1. LOGIN (Existing Users):                                      │
+│    Open: frontend/login.html                                    │
+│    Username: admin                                              │
+│    Password: admin123                                           │
+│    Click: Sign In                                               │
+│                                                                 │
+│ 2. SIGNUP (New Users):                                          │
+│    Open: frontend/signup.html                                   │
+│    Fill all fields                                              │
+│    Click: Create Account                                        │
+│    Auto-redirects to login                                      │
+│                                                                 │
+│ 3. DASHBOARD:                                                   │
+│    Open: frontend/index.html                                    │
+│    (Only accessible after login)                                │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 📚 FILES & LOCATIONS                                            │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ Frontend:                                                       │
+│   ├─ login.html       (Login page)                              │
+│   ├─ signup.html      (Registration page)                       │
+│   ├─ index.html       (Dashboard - requires login)              │
+│   └─ css/ js/         (Styles and scripts)                      │
+│                                                                 │
+│ Backend:                                                        │
+│   ├─ main.py          (FastAPI app)                             │
+│   ├─ run.py           (Server launcher)                         │
+│   ├─ init_db.py       (Initialize database)                     │
+│   ├─ verify_db.py     (Check database)                          │
+│   ├─ test_auth.py     (Run authentication tests)                │
+│   ├─ app/             (Application code)                        │
+│   │  ├─ models/       (Database models - including User)        │
+│   │  └─ routers/      (API endpoints - including auth)          │
+│   └─ vehicle_rental.db (SQLite database)                        │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 🔌 API ENDPOINTS                                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ Authentication:                                                 │
+│   POST   /api/auth/login       - User login                     │
+│   POST   /api/auth/signup      - User registration              │
+│   POST   /api/auth/logout      - User logout                    │
+│   GET    /api/auth/verify      - Verify token                   │
+│   GET    /api/auth/users       - List all users                 │
+│                                                                 │
+│ Full API Docs: http://127.0.0.1:8000/docs                       │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 🗄️ DATABASE OPERATIONS                                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ View Users:                                                     │
+│   cd backend                                                    │
+│   python verify_db.py                                           │
+│                                                                 │
+│ Run Auth Tests:                                                 │
+│   cd backend                                                    │
+│   python test_auth.py                                           │
+│                                                                 │
+│ Reset Database:                                                 │
+│   cd backend                                                    │
+│   rm vehicle_rental.db                                          │
+│   python init_db.py                                             │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 🔒 SECURITY FEATURES                                            │
+├─────────────────────────────────────────────────────────────────┤
+│ ✓ Password hashing (SHA-256)                                    │
+│ ✓ Session token management                                      │
+│ ✓ User role-based access                                        │
+│ ✓ Input validation                                              │
+│ ✓ CORS protection                                               │
+│ ✓ Email uniqueness check                                        │
+│ ✓ Username uniqueness check                                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ 📖 DOCUMENTATION FILES                                          │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│ SETUP_GUIDE.md            - Complete project setup & features   │
+│ TESTING_GUIDE.md          - Step-by-step testing instructions   │
+│ IMPLEMENTATION_REPORT.md  - What was implemented               │
+│ README.md                 - Project overview                    │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ ⚙️ START SERVER (If Not Running)                                │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                 │
+│   cd backend                                                    │
+│   python run.py                                                 │
+│                                                                 │
+│   Server will start on: http://127.0.0.1:8000                   │
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+
+╔═══════════════════════════════════════════════════════════════════╗
+║  Ready to test? Open login.html in your browser!                 ║
+║  Or try creating a new account via signup.html                   ║
+║                                                                  ║
+║  All credentials, database, and authentication are working! ✅    ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
